@@ -1,4 +1,8 @@
 #!/usr/bin/env python2
+
+# By Sami, packaged by Tom
+# http://code.activestate.com/recipes/66315-case-insensitive-dictionary/
+
 class dicti:
     """Dictionary, that has case-insensitive keys.
     
@@ -72,3 +76,5 @@ class dicti:
     def __str__(self):
         """String representation of the dictionary."""
         return repr(self)
+
+KeyInsensitiveDict = dicti
