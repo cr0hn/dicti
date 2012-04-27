@@ -1,0 +1,4 @@
+dicti
+=====
+
+Case-insensitive dictionary
