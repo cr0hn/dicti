@@ -86,25 +86,21 @@ class TestGet(TestDicti):
             for key in keys:
                 self.assertEqual(self.di.get(key), v)
 
-class TestSetDefault(TestDicti):
-    def setdefault(self, key, default):
-        """If 'key' doesn't exists, associate it with the 'default' value.
-        Return value associated with 'key'."""
-        if not self.has_key(key):
-            self[key] = default
-        return self[key]
+#class TestSetDefault(TestDicti):
+#    def test_setdefault(self):
 
-    def update(self, dict):
-        """Copy (key,value) pairs from 'dict'."""
-        for k,v in dict.items():
-            self[k] = v
+class TestUpdate(TestDicti):
+    def test_update(self):
+        new = {[]: 'h'}
+        self.d.update(new)
+        self.di.update(new)
+        self.assertDictEqual(d, di._dict)
 
-    def __repr__(self):
-        """String representation of the dictionary."""
-        items = ", ".join([("%r: %r" % (k,v)) for k,v in self.items()])
-        return "{%s}" % items
-
-    def __str__(self):
+class TestStringRepresentation(TestDicti):
+    def test_represent(self):
+        self.assertStringEqual(str(self.di), str(self.d))
+        self.assertStringEqual(repr(self.di), repr(self.d))
+        self.assertStringEqual(unicode(self.di), unicode(self.d))
 
 if __name__ == '__main__':
   main()
