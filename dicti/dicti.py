@@ -7,7 +7,7 @@ def lower(potentialstring):
     'Lowercase the potential string if possible'
     try:
         return potentialstring.lower()
-    except AttributeError
+    except AttributeError:
         return potentialstring
 
 class dicti:
@@ -29,18 +29,18 @@ class dicti:
 
     def __getitem__(self, key):
         """Retrieve the value associated with 'key' (in any case)."""
-        k = key.lower()
+        k = lower(key)
         return self._dict[k][1]
 
     def __setitem__(self, key, value):
         """Associate 'value' with 'key'. If 'key' already exists, but
         in different case, it will be replaced."""
-        k = key.lower()
+        k = lower(key)
         self._dict[k] = (key, value)
 
     def has_key(self, key):
         """Case insensitive test wether 'key' exists."""
-        k = key.lower()
+        k = lower(key)
         return self._dict.has_key(k)
 
     def keys(self):

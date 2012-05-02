@@ -8,7 +8,7 @@ class TestInit(TestCase):
         """Create an empty dictionary, or update from 'dict'."""
         d = {3: "u", "oeuoaue": []}
         di = dicti(d)
-        self.assertDictEqual(d, di._dict)
+        self.assertEqual(d[3], di._dict[3][1])
 
 class TestDicti(TestCase):
     def setUp(self):
@@ -73,10 +73,10 @@ class TestItems(TestDicti):
 
 class TestGet(TestDicti):
     def test_get_default(self):
-        self.assertEquals(self.di.get(42), 42)
+        self.assertEquals(self.di.get(None, 42), 42)
 
     def test_get(self):
-        for k, v in self.d.keys():
+        for k, v in self.d.items():
             keys = [k]
             try:
                 keys.extend([k.lower(), k.upper()])
@@ -91,10 +91,10 @@ class TestGet(TestDicti):
 
 class TestUpdate(TestDicti):
     def test_update(self):
-        new = {[]: 'h'}
+        new = {'mnoeOENUTH': 'h'}
         self.d.update(new)
         self.di.update(new)
-        self.assertEqual(d.items(), di.items())
+        self.assertEqual(self.d.items(), self.di.items())
 
 class TestStringRepresentation(TestDicti):
     def test_represent(self):
