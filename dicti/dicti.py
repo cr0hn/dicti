@@ -3,6 +3,13 @@
 # By Sami, packaged by Tom
 # http://code.activestate.com/recipes/66315-case-insensitive-dictionary/
 
+def lower(potentialstring):
+    'Lowercase the potential string if possible'
+    try:
+        return potentialstring.lower()
+    except AttributeError
+        return potentialstring
+
 class dicti:
     """Dictionary, that has case-insensitive keys.
     
@@ -13,7 +20,7 @@ class dicti:
     keys to (key,value) pairs. All key lookups are done
     against the lowercase keys, but all methods that expose
     keys to the user retrieve the original keys."""
-    
+
     def __init__(self, *args, **kwargs):
         """Create an empty dictionary, or update from 'dict'."""
         self._dict = {}

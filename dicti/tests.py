@@ -94,7 +94,7 @@ class TestUpdate(TestDicti):
         new = {[]: 'h'}
         self.d.update(new)
         self.di.update(new)
-        self.assertDictEqual(d, di._dict)
+        self.assertEqual(d.items(), di.items())
 
 class TestStringRepresentation(TestDicti):
     def test_represent(self):
@@ -103,4 +103,4 @@ class TestStringRepresentation(TestDicti):
         self.assertStringEqual(unicode(self.di), unicode(self.d))
 
 if __name__ == '__main__':
-  main()
+    main()
