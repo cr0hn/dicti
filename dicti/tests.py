@@ -65,7 +65,13 @@ class TestKeys(TestDicti):
 
 class TestValues(TestDicti):
     def test_values(self):
-        self.assertSetEqual(set(self.di.values()), set(self.d.values()))
+        v_di = self.di.values()
+        v_d = self.d.values()
+
+        v_di.sort()
+        v_d.sort()
+
+        self.assertListEqual(v_d, v_di)
 
 class TestItems(TestDicti):
     def test_items(self):
@@ -98,9 +104,9 @@ class TestUpdate(TestDicti):
 
 class TestStringRepresentation(TestDicti):
     def test_represent(self):
-        self.assertStringEqual(str(self.di), str(self.d))
-        self.assertStringEqual(repr(self.di), repr(self.d))
-        self.assertStringEqual(unicode(self.di), unicode(self.d))
+        self.assertEqual(str(self.di), str(self.d))
+        self.assertEqual(repr(self.di), repr(self.d))
+        self.assertEqual(unicode(self.di), unicode(self.d))
 
 if __name__ == '__main__':
     main()
