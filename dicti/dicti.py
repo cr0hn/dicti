@@ -14,11 +14,11 @@ class dicti:
     against the lowercase keys, but all methods that expose
     keys to the user retrieve the original keys."""
     
-    def __init__(self, dict=None):
+    def __init__(self, *args, **kwargs):
         """Create an empty dictionary, or update from 'dict'."""
         self._dict = {}
-        if dict:
-            self.update(dict)
+        if (len(args) + len(kwargs)) > 0:
+            self.update(dict(*args, **kwargs))
 
     def __getitem__(self, key):
         """Retrieve the value associated with 'key' (in any case)."""
