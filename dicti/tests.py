@@ -108,5 +108,9 @@ class TestStringRepresentation(TestDicti):
         self.assertEqual(repr(self.di), repr(self.d))
         self.assertEqual(unicode(self.di), unicode(self.d))
 
+class TestCompleteness(TestCase):
+    def test_dir(self):
+        self.assertListEqual(dir(dict), dir(dicti))
+
 if __name__ == '__main__':
     main()

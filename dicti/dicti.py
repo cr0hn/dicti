@@ -11,7 +11,7 @@ def lower(potentialstring):
         return potentialstring
 
 class dicti:
-    """Dictionary, that has case-insensitive keys.
+    """Dictionary with case-insensitive keys.
     
     Keys are retained in their original form
     when queried with .keys() or .items().
@@ -84,4 +84,4 @@ class dicti:
         """String representation of the dictionary."""
         return repr(self)
 
-KeyInsensitiveDict = dicti
+#KeyInsensitiveDict = dicti
