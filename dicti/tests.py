@@ -59,26 +59,34 @@ class TestHasKey(TestDicti):
             for key in keys:
                 self.assertTrue(self.di.has_key(key))
 
-    def keys(self):
-        """List of keys in their original case."""
-        return [v[0] for v in self._dict.values()]
+class TestKeys(TestDicti):
+    def test_keys(self):
+        self.assertSetEqual(set(self.di.keys()), set(self.d.keys()))
 
-    def values(self):
-        """List of values."""
-        return [v[1] for v in self._dict.values()]
+class TestValues(TestDicti):
+    def test_values(self):
+        self.assertSetEqual(set(self.di.values()), set(self.d.values()))
 
-    def items(self):
-        """List of (key,value) pairs."""
-        return self._dict.values()
+class TestItems(TestDicti):
+    def test_items(self):
+        self.assertDictEqual(dict(self.di.items()), dict(self.d.items()))
 
-    def get(self, key, default=None):
-        """Retrieve value associated with 'key' or return default value
-        if 'key' doesn't exist."""
-        try:
-            return self[key]
-        except KeyError:
-            return default
+class TestGet(TestDicti):
+    def test_get_default(self):
+        self.assertEquals(self.di.get(42), 42)
 
+    def test_get(self):
+        for k, v in self.d.keys():
+            keys = [k]
+            try:
+                keys.extend([k.lower(), k.upper()])
+            except AttributeError:
+                pass
+
+            for key in keys:
+                self.assertEqual(self.di.get(key), v)
+
+class TestSetDefault(TestDicti):
     def setdefault(self, key, default):
         """If 'key' doesn't exists, associate it with the 'default' value.
         Return value associated with 'key'."""
