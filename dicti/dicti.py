@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 
-# By Sami, packaged by Tom
+# Inspired by Sami but entirely rewritten
 # http://code.activestate.com/recipes/66315-case-insensitive-dictionary/
 
 def lower(potentialstring):
@@ -62,12 +62,19 @@ class dicti(dict):
 #       return self._keys.__hash__()
 
     def __init__(self, *args, **kwargs):
-        """Create an empty dictionary, or update from 'dict'."""
+        # Create the keys dictionary
         self._keys = {}
+
+        #Create from dictionary
         if len(args) == 1:
-            self.update(args[0])
+            fromdict = args[0]
+
+        # Create from dictionary arguments
         elif len(kwargs) > 0:
-            self.update(dict(*args, **kwargs))
+            fromdict = dict(*args, **kwargs)
+
+        # The actual creation
+        self.update(fromdict)
 
 #   def __iter__(self):
 #       return self._keys.__iter__()
@@ -180,6 +187,3 @@ class dicti(dict):
 
 #   def viewvalues(self):
 #       return self._keys.viewvalues()
-
-
-#KeyInsensitiveDict = dicti
