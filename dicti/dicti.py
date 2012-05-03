@@ -11,15 +11,21 @@ def lower(potentialstring):
         return potentialstring
 
 class dicti(dict):
-    """Dictionary with case-insensitive keys.
-    
-    Keys are retained in their original form
-    when queried with .keys() or .items().
+    """
+    A dictionary with case-insensitive keys.
 
-    Implementation: An internal dictionary maps lowercase
-    keys to the original keys. All key lookups are done
-    against the lowercase keys, but all methods that expose
-    keys to the user retrieve the original keys."""
+    Methods that accept keys do the same thing regardless
+    of what case you pass the key in.
+
+    Keys are still stored in their original case, however;
+    the original keys are presented when you request them
+    with methods like dicti.keys.
+    """
+
+    # Implementation: An internal dictionary maps lowercase
+    # keys to the original keys. All key lookups are done
+    # against the lowercase keys, but all methods that expose
+    # keys to the user retrieve the original keys.
 
 #   def __class__(self):
 #       return self._keys.__class__()
