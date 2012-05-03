@@ -18,8 +18,6 @@
 # Inspired by Sami but entirely rewritten
 # http://code.activestate.com/recipes/66315-case-insensitive-dictionary/
 
-__version__ = '0.0.1'
-
 def lower(potentialstring):
     'Lowercase the potential string if possible'
     try:
