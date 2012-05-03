@@ -1,7 +1,24 @@
 #!/usr/bin/env python2
 
+# This file is part of dicti.
+
+# dicti is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# dicti is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero Public License for more details.
+
+# You should have received a copy of the GNU Affero Public License
+# along with dicti.  If not, see <http://www.gnu.org/licenses/>.
+
 # Inspired by Sami but entirely rewritten
 # http://code.activestate.com/recipes/66315-case-insensitive-dictionary/
+
+__version__ = '0.0.1'
 
 def lower(potentialstring):
     'Lowercase the potential string if possible'
@@ -39,8 +56,10 @@ class dicti(dict):
 #   def __delattr__(self):
 #       return self._keys.__delattr__()
 
-#   def __delitem__(self):
-#       return self._keys.__delitem__()
+    def __delitem__(self, k):
+        out = dict.__delitem__(self, self._keys[lower(k)])
+        del(self._keys[lower(k)])
+        return out
 
 #   def __doc__(self):
 #       return self._keys.__doc__()
@@ -68,18 +87,13 @@ class dicti(dict):
 #       return self._keys.__hash__()
 
     def __init__(self, *args, **kwargs):
-        # Create the keys dictionary
+        # Create the keys dictionary.
         self._keys = {}
 
-        #Create from dictionary
-        if len(args) == 1:
-            fromdict = args[0]
+        # Create the case-sensitive dictionary.
+        fromdict = dict(*args, **kwargs)
 
-        # Create from dictionary arguments
-        elif len(kwargs) > 0:
-            fromdict = dict(*args, **kwargs)
-
-        # The actual creation
+        # Update the case-insensitive dictionary.
         self.update(fromdict)
 
 #   def __iter__(self):
@@ -115,6 +129,8 @@ class dicti(dict):
     def __setitem__(self, k, v):
         """Associate 'value' with 'key'. If 'key' already exists, but
         in different case, it will be replaced."""
+        if self.has_key(k):
+            del(self[k])
         self._keys[lower(k)] = k
         dict.__setitem__(self, k, v)
 

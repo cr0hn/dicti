@@ -1,5 +1,21 @@
 #!/usr/bin/env python2
 # -*- encoding: utf-8 -*-
+
+# This file is part of dicti.
+
+# dicti is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# dicti is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero Public License for more details.
+
+# You should have received a copy of the GNU Affero Public License
+# along with dicti.  If not, see <http://www.gnu.org/licenses/>.
+
 from unittest import TestCase, main
 from dicti import dicti
 import random
@@ -46,6 +62,34 @@ class TestSetItem(TestDicti):
                 v = random.random()
                 self.di[key] = v
                 self.assertEqual(self.di[key], v)
+
+class TestRewrite(TestCase):
+    def test_rewrite(self):
+        di = dicti()
+        di['cAsE'] = 1
+        self.assertEqual(di['case'], 1)
+        di['Case'] = 2
+        self.assertEqual(di['case'], 2)
+
+        self.assertListEqual(di.keys(), ['Case'])
+        self.assertListEqual(di.values(), [2])
+
+class TestReadmeExamples(TestCase):
+    def test_init(self):
+        d = dict(foo = 'bar', answer = 42)
+        di = dicti(foo = 'bar', answer = 42)
+        self.assertEqual(d.items(), di.items())
+        
+        d = dict({'foo': 'bar', 'answer': 42})
+        di = dicti({'foo': 'bar', 'answer': 42})
+        self.assertEqual(d.items(), di.items())
+
+        di = dicti()
+        di['cAsE'] = 1
+        self.assertListEqual(di.keys(), ['cAsE'])
+        di['Case'] = 1
+        self.assertListEqual(di.keys(), ['Case'])
+        self.assertEqual(di['caSE'], 1)
 
 class TestHasKey(TestDicti):
     def test_has_key(self):
