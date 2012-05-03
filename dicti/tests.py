@@ -194,5 +194,17 @@ class TestCompleteness(TestCase):
         diff = set(dir(dict)).difference(dir(dicti))
         self.assertSetEqual(set(), diff )
 
+class TestSameLetters(TestCase):
+    d = {'CASE': 'lower', 'CASE': 'UPPER'}
+    di = dicti({'case': 'lower', 'CASE': 'UPPER'})
+
+    def test_dict(self):
+        self.assertEqual(self.d.keys(), ['CASE'])
+        self.assertEqual(self.d.values(), ['UPPER'])
+
+    def test_dicti(self):
+        self.assertEqual(self.di.keys(), ['CASE'])
+        self.assertEqual(self.di.values(), ['UPPER'])
+
 if __name__ == '__main__':
     main()

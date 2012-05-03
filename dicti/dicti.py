@@ -124,10 +124,7 @@ class dicti(dict):
 #       return self._keys.__setattr__()
 
     def __setitem__(self, k, v):
-        if self.has_key(k):
-            self.__delitem__(k)
-        self._keys[lower(k)] = k
-        dict.__setitem__(self, k, v)
+        self.update({k: v})
 
 #   def __sizeof__(self):
 #       return self._keys.__sizeof__()
@@ -154,7 +151,6 @@ class dicti(dict):
             return d
 
     def has_key(self, k):
-        """Case insensitive test wether 'key' exists."""
         return self._keys.has_key(lower(k))
 
 #   def items(self):
@@ -190,7 +186,28 @@ class dicti(dict):
 
     def update(self, d):
         """Copy (key,value) pairs from 'd'."""
-        self._keys.update(dict(zip(map(lower, d.keys()), d.keys())))
+
+        # Remove duplicate keys in the new dictionary
+        keys = d.keys()
+        keys.reverse()
+
+        so_far = []
+        for key in keys:
+            l = lower(key)
+            if l in so_far:
+                del(d[key])
+            else:
+                so_far.append(l)
+
+        # Remove keys from the old dictionary
+        keys_lower = map(lower, d.keys())
+        for key_lower in keys_lower:
+            if self.has_key(key_lower):
+                self.__delitem__(key_lower)
+
+        self._keys.update(dict(zip(keys_lower, d.keys())))
+
+        # Ready
         dict.update(self, d)
 
 #   def values(self):
