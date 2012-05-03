@@ -19,6 +19,7 @@
 from unittest import TestCase, main
 from dicti import dicti
 import random
+import json
 
 class TestInit(TestCase):
     def test__init__(self):
@@ -184,9 +185,14 @@ class TestStringRepresentation(TestDicti):
         self.assertEqual(repr(self.di), repr(self.d))
         self.assertEqual(unicode(self.di), unicode(self.d))
 
-#class TestCompleteness(TestCase):
-#    def test_dir(self):
-#        self.assertListEqual(dir(dict), dir(dicti))
+class TestJSON(TestDicti):
+    def test_json(self):
+        self.assertEqual(json.dumps(self.di), json.dumps(self.d))
+
+class TestCompleteness(TestCase):
+    def test_dir(self):
+        diff = set(dir(dict)).difference(dir(dicti))
+        self.assertSetEqual(set(), diff )
 
 if __name__ == '__main__':
     main()
