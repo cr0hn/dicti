@@ -7,7 +7,7 @@ is case-insensitive.
 
 ### Installing
 
-    `pip install dicti`
+    pip install dicti
 
 ### Creating
 Instantiate it like you would <!-- instantiate --> a normal dict;
