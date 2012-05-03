@@ -8,7 +8,7 @@ class TestInit(TestCase):
         """Create an empty dictionary, or update from 'dict'."""
         d = {3: "u", "oeuoaue": []}
         di = dicti(d)
-        self.assertEqual(d[3], di._dict[3])
+        self.assertEqual(d[3], di[3])
 
 class TestDicti(TestCase):
     def setUp(self):
