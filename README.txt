@@ -24,8 +24,14 @@ for example, these work.
     dicti({'foo': 'bar', 'answer': 42})
 
 ### Retrieving keys
-Methods that accept keys and have side-effects record
-the original case, just as a normal dictionary does.
+You can retrieve an item with a case-insensitive match.
+
+    di = dicti()
+    di['cAsE'] = 1
+    di['case'] == di['CASE']
+
+Methods that record keys record the original case,
+just as a normal dictionary does.
 
     di = dicti()
     di['cAsE'] = 1
@@ -33,9 +39,6 @@ the original case, just as a normal dictionary does.
     di['Case'] = 1
     di.keys() == ['Case']
     di['caSE'] == 1
-
-Methods that accept keys do the same thing regardless
-of what case you pass the key in.
 
 Keys are still stored in their original case, however;
 the original keys are presented when you request them
