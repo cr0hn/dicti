@@ -29,4 +29,4 @@ of what case you pass the key in.
 
 Keys are still stored in their original case, however;
 the original keys are presented when you request them
-with methods like dicti.keys.
+with methods like `dicti.keys`.
