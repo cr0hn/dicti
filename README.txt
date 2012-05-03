@@ -10,7 +10,11 @@ is case-insensitive.
     pip install dicti
 
 ### Creating
-Instantiate it like you would <!-- instantiate --> a normal dict;
+Import `dicti`.
+
+    from dicti import dicti
+
+Then instantiate `dicti` like you would a normal dict;
 for example, these work.
 
     dict(foo = 'bar', answer = 42)
