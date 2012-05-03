@@ -57,9 +57,8 @@ class dicti(dict):
 #       return self._keys.__delattr__()
 
     def __delitem__(self, k):
-        out = dict.__delitem__(self, self._keys[lower(k)])
+        dict.__delitem__(self, self._keys[lower(k)])
         del(self._keys[lower(k)])
-        return out
 
 #   def __doc__(self):
 #       return self._keys.__doc__()
@@ -127,10 +126,8 @@ class dicti(dict):
 #       return self._keys.__setattr__()
 
     def __setitem__(self, k, v):
-        """Associate 'value' with 'key'. If 'key' already exists, but
-        in different case, it will be replaced."""
         if self.has_key(k):
-            del(self[k])
+            self.__delitem__(k)
         self._keys[lower(k)] = k
         dict.__setitem__(self, k, v)
 

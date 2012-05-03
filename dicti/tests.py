@@ -131,18 +131,27 @@ class TestPop(TestDicti):
     def test_pop_default(self):
         self.assertEquals(self.di.pop(None, 42), 42)
 
-    def test_pop(self):
-        for k, v in self.d.items():
-            keys = [k]
-            try:
-                keys.extend([k.lower(), k.upper()])
-            except AttributeError:
-                pass
+class TestReSetItem(TestDicti):
+#   def test_reset_many(self):
+#       for k, v in self.d.items():
+#           keys = [k]
+#           try:
+#               keys.extend([k.lower(), k.upper()])
+#           except AttributeError:
+#               pass
 
-            for key in keys:
-                self.assertEqual(self.di.pop(key), v)
-                self.assertRaises(KeyError, self.di.pop(key))
-                self.di[key] = v
+#           for key in keys:
+#               self.di[key] = v
+#               self.assertEqual(self.di.pop(key), v)
+#               self.assertRaises(KeyError, lambda: self.di.pop(key))
+
+    def test_reset(self):
+        di = dicti()
+        di['oeuOEU'] = 3
+        del(di['oeuoeu'])
+        di['oEuOeU'] = 3
+        di['oEuOEU'] = 3
+        del(di['oeuoeu'])
 
 class TestGet(TestDicti):
     def test_get_default(self):
