@@ -5,7 +5,12 @@ dicti
 It works like the normal `dict` except that key matching
 is case-insensitive.
 
-Instantiate like you would instantiate a normal dict;
+### Installing
+
+    `pip install dicti`
+
+### Creating
+Instantiate it like you would <!-- instantiate --> a normal dict;
 for example, these work.
 
     dict(foo = 'bar', answer = 42)
@@ -14,6 +19,7 @@ for example, these work.
     dict({'foo': 'bar', 'answer': 42})
     dicti({'foo': 'bar', 'answer': 42})
 
+### Retrieving keys
 Methods that accept keys and have side-effects record
 the original case, just as a normal dictionary does.
 
