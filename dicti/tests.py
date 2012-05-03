@@ -2,6 +2,7 @@
 # -*- encoding: utf-8 -*-
 from unittest import TestCase, main
 from dicti import dicti
+import random
 
 class TestInit(TestCase):
     def test__init__(self):
@@ -31,7 +32,6 @@ class TestGetItem(TestDicti):
 
             for key in keys:
                 self.assertEqual(self.di[k], v)
-import random
 
 class TestSetItem(TestDicti):
     def test__setitem__(self):
@@ -59,6 +59,12 @@ class TestHasKey(TestDicti):
             for key in keys:
                 self.assertTrue(self.di.has_key(key))
 
+class TestIter(TestDicti):
+    def test_iter(self):
+        k_observed = [k for k in self.di]
+        k_expected = [k for k in self.d]
+        self.assertEqual(k_observed, k_expected)
+
 class TestKeys(TestDicti):
     def test_keys(self):
         self.assertSetEqual(set(self.di.keys()), set(self.d.keys()))
@@ -76,6 +82,23 @@ class TestValues(TestDicti):
 class TestItems(TestDicti):
     def test_items(self):
         self.assertDictEqual(dict(self.di.items()), dict(self.d.items()))
+
+class TestPop(TestDicti):
+    def test_pop_default(self):
+        self.assertEquals(self.di.pop(None, 42), 42)
+
+    def test_pop(self):
+        for k, v in self.d.items():
+            keys = [k]
+            try:
+                keys.extend([k.lower(), k.upper()])
+            except AttributeError:
+                pass
+
+            for key in keys:
+                self.assertEqual(self.di.pop(key), v)
+                self.assertRaises(KeyError, self.di.pop(key))
+                self.di[key] = v
 
 class TestGet(TestDicti):
     def test_get_default(self):

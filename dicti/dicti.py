@@ -124,9 +124,7 @@ class dicti(dict):
 #       return self._keys.fromkeys()
 
     def get(self, k, d = None):
-        """Retrieve value associated with 'key' or return default value
-        if 'key' doesn't exist."""
-        if self._keys.has_key(lower(k)):
+        if self.has_key(k):
             return dict.get(self, self._keys[lower(k)], d)
         else:
             return d
@@ -150,8 +148,11 @@ class dicti(dict):
 #   def keys(self):
 #       return self._keys.keys()
 
-#   def pop(self):
-#       return self._keys.pop()
+    def pop(self, k, d = None):
+        if self.has_key(k):
+            return dict.pop(self, self._keys[lower(k)], d)
+        else:
+            return d
 
 #   def popitem(self):
 #       return self._keys.popitem()
