@@ -23,45 +23,32 @@ class dicti:
 
     def __init__(self, *args, **kwargs):
         """Create an empty dictionary, or update from 'dict'."""
+        self._keys = {}
         self._dict = {}
         if (len(args) + len(kwargs)) > 0:
             self.update(dict(*args, **kwargs))
 
-    def __getitem__(self, key):
+    def __getitem__(self, k):
         """Retrieve the value associated with 'key' (in any case)."""
-        k = lower(key)
-        return self._dict[k][1]
+        return self._dict[self._keys[lower(k)]]
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, k, v):
         """Associate 'value' with 'key'. If 'key' already exists, but
         in different case, it will be replaced."""
-        k = lower(key)
-        self._dict[k] = (key, value)
+        self._keys[lower(k)] = k
+        self._dict[k] = v
 
-    def has_key(self, key):
+    def has_key(self, k):
         """Case insensitive test wether 'key' exists."""
-        k = lower(key)
-        return self._dict.has_key(k)
+        return self._keys.has_key(lower(k))
 
-    def keys(self):
-        """List of keys in their original case."""
-        return [v[0] for v in self._dict.values()]
-
-    def values(self):
-        """List of values."""
-        return [v[1] for v in self._dict.values()]
-
-    def items(self):
-        """List of (key,value) pairs."""
-        return self._dict.values()
-
-    def get(self, key, default=None):
+    def get(self, k, d = None):
         """Retrieve value associated with 'key' or return default value
         if 'key' doesn't exist."""
-        try:
-            return self[key]
-        except KeyError:
-            return default
+        if self._keys.has_key(lower(k)):
+            return self._dict.get(self._keys[lower(k)], d)
+        else:
+            return d
 
     def setdefault(self, key, default):
         """If 'key' doesn't exists, associate it with the 'default' value.
@@ -70,18 +57,25 @@ class dicti:
             self[key] = default
         return self[key]
 
-    def update(self, dict):
-        """Copy (key,value) pairs from 'dict'."""
-        for k,v in dict.items():
-            self[k] = v
+    def update(self, d):
+        """Copy (key,value) pairs from 'd'."""
+        self._keys.update(dict(zip(map(lower, d.keys()), d.keys())))
+        self._dict.update(d)
+
+    # The rest don't change.
+    def keys(self):
+        return self._dict.keys()
+
+    def values(self):
+        return self._dict.values()
+
+    def items(self):
+        return self._dict.items()
 
     def __repr__(self):
-        """String representation of the dictionary."""
-        items = ", ".join([("%r: %r" % (k,v)) for k,v in self.items()])
-        return "{%s}" % items
+        return self._dict.__repr__()
 
     def __str__(self):
-        """String representation of the dictionary."""
-        return repr(self)
+        return self._dict.__str__()
 
 #KeyInsensitiveDict = dicti
