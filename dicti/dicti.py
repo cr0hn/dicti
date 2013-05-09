@@ -48,8 +48,11 @@ class dicti(dict):
 #   def __cmp__(self):
 #       return self._keys.__cmp__()
 
-    def __contains__(self):
-        return self._keys.__contains__()
+    def __contains__(self, key):
+
+        k = key.lower()
+
+        return k in self._keys
 
 #   def __delattr__(self):
 #       return self._keys.__delattr__()
